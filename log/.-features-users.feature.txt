@@ -1,0 +1,54 @@
+Feature: Users # features/users.feature:1
+
+  Scenario: Create a new user                      # features/users.feature:3
+    Given I go to the storefront                   # steps/shop.py:9
+    When I go to the user creation screen          # steps/users.py:11
+    And I sign up a new user                       # steps/users.py:16
+    Then I verify the new user account was created # steps/users.py:21
+      Traceback (most recent call last):
+        File "/home/matias/python_automation/venv/lib/python3.8/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/home/matias/python_automation/venv/lib/python3.8/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps/users.py", line 24, in step_impl
+          assert apihelper.get_login_token(context.user).status_code == 200
+        File "/home/matias/python_automation/helpers/apihelper.py", line 25, in get_login_token
+          raise RequestReturnedNonOK(response.status_code)
+      helpers.custom_exceptions.RequestReturnedNonOK: request returned a HTTP response code other than OK: 404
+
+
+
+Failing scenarios:
+  features/users.feature:3  Create a new user
+
+0 features passed, 1 failed, 0 skipped
+0 scenarios passed, 1 failed, 0 skipped
+3 steps passed, 1 failed, 0 skipped, 0 undefined
+Took 0m3.146s
+Feature: Users # features/users.feature:1
+
+  Scenario: Create a new user                      # features/users.feature:3
+    Given I go to the storefront                   # steps/shop.py:9
+    When I go to the user creation screen          # steps/users.py:11
+    And I sign up a new user                       # steps/users.py:16
+    Then I verify the new user account was created # steps/users.py:21
+      Traceback (most recent call last):
+        File "/home/matias/python_automation/venv/lib/python3.8/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/home/matias/python_automation/venv/lib/python3.8/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "steps/users.py", line 24, in step_impl
+          assert apihelper.get_login_token(context.user).status_code == 200
+        File "/home/matias/python_automation/helpers/apihelper.py", line 25, in get_login_token
+          raise RequestReturnedNonOK(response.status_code)
+      helpers.custom_exceptions.RequestReturnedNonOK: request returned a HTTP response code other than OK: 404
+
+
+
+Failing scenarios:
+  features/users.feature:3  Create a new user
+
+0 features passed, 1 failed, 0 skipped
+0 scenarios passed, 1 failed, 0 skipped
+3 steps passed, 1 failed, 0 skipped, 0 undefined
+Took 0m6.231s
