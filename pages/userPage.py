@@ -1,7 +1,6 @@
 import string
 import random
 
-from context.driver import driver
 from model.Customer import Customer
 from pages.basePage import BasePage, Locator
 from selenium.webdriver.common.keys import Keys
@@ -15,14 +14,8 @@ class UserPage(BasePage):
     _CREATE_SIGNUP_BUTTON = Locator(By.CSS_SELECTOR, "div.createFormButton > button")
     _SUCCESS_MESSAGE = Locator(By.CSS_SELECTOR, "div.successMessage")
 
-    @classmethod
-    def get_instance(cls):
-        if cls.instance is None:
-            cls.instance = UserPage()
-        return cls.instance
-
-    def __init__(self):
-        super().__init__()
+    def __init__(self, driver):
+        super().__init__(driver)
 
     def create_random_user(self):
         user = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
@@ -37,5 +30,3 @@ class UserPage(BasePage):
     def is_success_message_displayed(self):
         return self.get_element(self._SUCCESS_MESSAGE).text == "Congratulations! Your account has been created!"
 
-
-user_create_page = UserPage.get_instance()

@@ -1,5 +1,4 @@
 from context.config import settings
-from context.driver import driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -17,8 +16,8 @@ class Locator:
 
 
 class BasePage:
-    def __init__(self):
-        self.driver = driver.get_driver()
+    def __init__(self, driver):
+        self.driver = driver
 
     @abstractmethod
     def _validate_page(self):
@@ -28,7 +27,7 @@ class BasePage:
         self.driver.get(url)
 
     def _execute_with_wait(self, condition):
-        return WebDriverWait(self.driver, settings.driver_timeout).until(condition)
+        return WebDriverWait(self.driver.get_driver(), settings.driver_timeout).until(condition)
 
     def element_exists(self, locator):
         try:
@@ -44,4 +43,4 @@ class BasePage:
         if not self.element_exists(locator):
             raise NoSuchElementException(f"Could not find {locator.selector}")
 
-        return self.driver.find_element(locator.l_type, locator.selector)
+        return self.driver.get_driver().find_element(locator.l_type, locator.selector)

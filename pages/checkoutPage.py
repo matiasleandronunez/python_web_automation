@@ -1,4 +1,3 @@
-from context.driver import driver
 from pages.basePage import BasePage, Locator
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -23,14 +22,8 @@ class CheckoutPage(BasePage):
     _CART_TAXES = Locator(By.CSS_SELECTOR, "div.totalDetails div:nth-child(3) > span:nth-child(2)")
     _CART_TOTAL = Locator(By.CSS_SELECTOR, "div.totalFinal > span:nth-child(2)")
 
-    @classmethod
-    def get_instance(cls):
-        if cls.instance is None:
-            cls.instance = CheckoutPage()
-        return cls.instance
-
-    def __init__(self):
-        super().__init__()
+    def __init__(self, driver):
+        super().__init__(driver)
 
     def get_subtotal(self):
         cart_q = super().get_element(self._CART_SUBTOTAL)
@@ -63,4 +56,3 @@ class CheckoutPage(BasePage):
     def complete_order(self):
         self.get_element(self._COMPLETE_ORDER_BUTTON).click()
 
-checkout_page = CheckoutPage.get_instance()

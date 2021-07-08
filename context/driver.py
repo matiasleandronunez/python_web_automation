@@ -3,16 +3,8 @@ from context.config import settings
 
 
 class Driver(object):
-    instance = None
-
     class SeleniumDriverNotFound(Exception):
         pass
-
-    @classmethod
-    def get_instance(cls):
-        if not cls.instance:
-            cls.instance = Driver()
-        return cls.instance
 
     def __init__(self, tag_browser=None):
 
@@ -33,9 +25,8 @@ class Driver(object):
     def get_driver(self):
         return self.driver
 
-    def stop_instance(self):
+    def stop_driver(self):
         self.driver.quit()
-        instance = None
 
     def clear_cookies(self):
         self.driver.delete_all_cookies()
@@ -44,4 +35,4 @@ class Driver(object):
         self.driver.get(url)
 
 
-driver = Driver.get_instance()
+#driver = Driver.get_instance()

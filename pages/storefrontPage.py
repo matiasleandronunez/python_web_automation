@@ -1,4 +1,3 @@
-from context.driver import driver
 from pages.basePage import BasePage, Locator
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -11,14 +10,8 @@ class StorefrontPage(BasePage):
     _CREATE_USER_LINK = Locator(By.CSS_SELECTOR, "div.buttonSection > div > button:nth-child(1)")
     _SIGN_IN_LINK = Locator(By.CSS_SELECTOR, "div.buttonSection > div > button:nth-child(2)")
 
-    @classmethod
-    def get_instance(cls):
-        if cls.instance is None:
-            cls.instance = StorefrontPage()
-        return cls.instance
-
-    def __init__(self):
-        super().__init__()
+    def __init__(self, driver):
+        super().__init__(driver)
 
     def get_cart_quantity(self, search_term):
         cart_q = super().get_element(self._CART_QUANTITY)
@@ -43,4 +36,3 @@ class StorefrontPage(BasePage):
     def sign_in_link(self):
         self.get_element(self._SIGN_IN_LINK).click()
 
-storefront_page = StorefrontPage.get_instance()
