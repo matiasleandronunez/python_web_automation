@@ -2,7 +2,8 @@ from context.config import settings
 from types import SimpleNamespace
 import requests
 import json
-from helpers.custom_exceptions import RequestReturnedNonOK, RequestReturnedNonExpected
+from helpers.custom_exceptions import *
+from model.Customer import Customer
 
 
 def get_customer_by_username(username):
@@ -12,6 +13,7 @@ def get_customer_by_username(username):
         raise RequestReturnedNonOK(response.status_code)
     else:
         return json.loads(response.json(), object_hook=lambda d: SimpleNamespace(**d))
+
 
 def get_login_token(customer):
     req_body = {
@@ -26,7 +28,10 @@ def get_login_token(customer):
     else:
         return response.status_code
 
-def post_customer(customer):
+
+def post_customer(customer=None):
+    customer = customer if customer is not None else Customer()
+
     req_body = {"customerId": 0,
         "name": f"{customer.name}",
         "address": f"{customer.addr}",
@@ -39,10 +44,14 @@ def post_customer(customer):
 
     response = requests.post(f"{settings.api_uri}/api/customer/", json=req_body)
 
-    if response.status_code != 200:
-        raise RequestReturnedNonOK(response.status_code)
+    if response.status_code != 201:
+        if response.status_code == 409:
+            raise RequestReturnedConflict(status_code=response.status_code)
+        else:
+            raise RequestReturnedNonOK(status_code=response.status_code)
     else:
-        return response.status_code
+        return json.loads(response.text)['customerId']
+
 
 def delete_all_customers():
     response = requests.delete(f"{settings.api_uri}/api/customer/")
@@ -51,3 +60,13 @@ def delete_all_customers():
         raise RequestReturnedNonExpected(response.status_code)
     else:
         return response.status_code
+
+
+def delete_customer(cust_id):
+    response = requests.delete(f"{settings.api_uri}/api/customer/{cust_id}")
+
+    if response.status_code != 204:
+        raise RequestReturnedNonExpected(response.status_code)
+    else:
+        return response.status_code
+
