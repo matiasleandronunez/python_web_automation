@@ -1,3 +1,4 @@
 behave 
 selenium
 requests
+Faker
