@@ -1,0 +1,198 @@
+version: "3"
+
+services:
+
+  selenium-hub:
+
+    image: selenium/hub:latest
+
+    container_name: selenium-hub
+
+    ports:
+
+      - "4444:4444"
+
+    networks:
+        - front-tier
+
+  chrome-debug:
+
+    image: selenium/node-chrome-debug:latest
+
+    container_name: chrome_latest
+
+    volumes:
+
+      - /dev/shm:/dev/shm
+
+    depends_on:
+
+      - selenium-hub
+
+    environment:
+
+      - HUB_HOST=selenium-hub
+
+      - HUB_PORT=4444
+
+    ports:
+
+      - "5900:5900"
+
+  firefox-debug:
+
+    image: selenium/node-firefox-debug:latest
+
+    container_name: "firefox_latest"
+
+    volumes:
+
+      - /dev/shm:/dev/shm
+
+    depends_on:
+
+      - selenium-hub
+
+    environment:
+
+      - HUB_HOST=selenium-hub
+
+      - HUB_PORT=4444
+
+    ports:
+
+      - "5901:5900"
+
+  opera-debug:
+
+    image: selenium/node-opera-debug:latest
+
+    container_name: opera_latest
+
+    volumes:
+
+      - /dev/shm:/dev/shm
+
+    depends_on:
+
+      - selenium-hub
+
+    environment:
+
+      - HUB_HOST=selenium-hub
+
+      - HUB_PORT=4444
+
+    ports:
+
+      - "5902:5900"
+
+  real_device:
+
+    image: appium/appium
+
+    depends_on:
+
+      - selenium-hub
+
+    network_mode: "service:selenium-hub"
+
+    privileged: true
+
+    volumes:
+
+      - /dev/bus/usb:/dev/bus/usb
+
+      - ~/.android:/root/.android
+
+      - $PWD/example/sample_apk:/root/tmp
+
+    environment:
+
+      - CONNECT_TO_GRID=true
+
+      - SELENIUM_HOST=selenium-hub
+
+      # Enable it for msite testing
+
+      - BROWSER_NAME=chrome
+
+  samsung_11.0:
+
+    image:  budtmo/docker-android-x86-11.0
+
+    privileged: true
+
+    # Increase scale number if needed
+
+    scale: 1
+
+    depends_on:
+      - selenium-hub
+      - real_device
+
+    ports:
+
+      - "6080:6080"
+
+    volumes:
+
+      - ./video-samsung_11.0:/tmp/video
+
+    environment:
+      - DEVICE=Samsung Galaxy S10
+      - CONNECT_TO_GRID=true
+      - APPIUM=true
+      - SELENIUM_HOST=selenium-hub
+      - SELENIUM_PORT=4444
+      - MOBILE_WEB_TEST=true
+      - AUTO_RECORD=true
+      - SELENIUM_TIMEOUT=30
+      - NO_PROXY="localhost"
+
+  database:
+    image: dockersamples/atsea_db
+    build:
+       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/database#:7
+    environment:
+      POSTGRES_USER: gordonuser
+      POSTGRES_DB: atsea
+    ports:
+      - "5432:5432"
+    networks:
+      - back-tier
+    secrets:
+      - postgres_password
+
+  appserver:
+    image: dockersamples/atsea_app
+    build:
+       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/app#:7
+       dockerfile: Dockerfile-dev
+    container_name: atsea
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    networks:
+      - front-tier
+      - back-tier
+    secrets:
+      - postgres_password
+
+  tests:
+    build:
+      context: ./src_code
+      dockerfile: Dockerfile
+    container_name: tests
+    networks:
+      - front-tier
+
+secrets:
+  postgres_password:
+    file: ./devsecrets/postgres_password
+
+networks:
+  front-tier:
+  back-tier:
+  payment:
+    driver: overlay
