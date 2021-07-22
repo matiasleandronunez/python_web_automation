@@ -184,6 +184,7 @@ services:
       context: ./src_code
       dockerfile: Dockerfile
     container_name: tests
+    tty: true
     networks:
       - front-tier
 

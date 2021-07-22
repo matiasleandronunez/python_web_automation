@@ -31,9 +31,9 @@ RUN rm geckodriver-v0.29.1-linux64.tar.gz
 ENV DISPLAY=:99
 
 # xvfb - X server display
-ADD xvfb-chromium /usr/bin/xvfb-chromium
-RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome \
-    && chmod 777 /usr/bin/xvfb-chromium
+#ADD xvfb-chromium /usr/bin/xvfb-chromium
+#RUN ln -s /usr/bin/xvfb-chromium /usr/bin/google-chrome \
+#    && chmod 777 /usr/bin/xvfb-chromium
 
 # upgrade pip
 RUN pip install --upgrade pip
@@ -45,7 +45,7 @@ RUN mkdir /code
 WORKDIR /code
 
 #copy testing code
-COPY ./src_code .
+COPY ./ ./
 
 # install requirements
 RUN pip install -r requirements.txt
