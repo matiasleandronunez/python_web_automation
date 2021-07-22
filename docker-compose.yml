@@ -38,6 +38,8 @@ services:
     ports:
 
       - "5900:5900"
+    networks:
+        - front-tier
 
   firefox-debug:
 
@@ -62,6 +64,8 @@ services:
     ports:
 
       - "5901:5900"
+    networks:
+        - front-tier
 
   opera-debug:
 
@@ -86,6 +90,8 @@ services:
     ports:
 
       - "5902:5900"
+    networks:
+        - front-tier
 
   real_device:
 
@@ -134,6 +140,8 @@ services:
     ports:
 
       - "6080:6080"
+    networks:
+        - front-tier
 
     volumes:
 
