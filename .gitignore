@@ -12,4 +12,5 @@ lib
 lib64
 *.pyc
 *.pyo
-/geckodriver.log
+src_code/geckodriver.log
+/.idea/
