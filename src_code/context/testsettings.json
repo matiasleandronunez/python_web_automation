@@ -1,6 +1,6 @@
 {
-  "url": "atsea:8080",
-  "api_uri": "atsea:5005",
+  "url": "appserver:8080",
+  "api_uri": "appserver:5005",
   "default_browser": "chrome",
   "grid_uri": "selenium-hub:4444",
   "driver_timeout": "10"
