@@ -14,7 +14,8 @@ class Driver(object):
             self.driver = webdriver.Firefox()
             self.driver.maximize_window()
         elif tag_browser == "grid_chrome":
-            self.driver = webdriver.Remote()
+            capabilities = webdriver.DesiredCapabilities.CHROME.copy()
+            self.driver = webdriver.Remote(command_executor=f"{settings.grid_uri}", desired_capabilities=capabilities)
             self.driver.maximize_window()
         else:
             raise SeleniumDriverNotFound(
