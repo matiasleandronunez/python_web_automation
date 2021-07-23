@@ -14,82 +14,38 @@ services:
 
     networks:
         - front-tier
-
-  chrome-debug:
-
-    image: selenium/node-chrome-debug:latest
-
+  chrome:
+    image: selenium/node-chrome:latest
     container_name: chrome_latest
-
     volumes:
-
       - /dev/shm:/dev/shm
-
     depends_on:
-
       - selenium-hub
-
     environment:
-
       - HUB_HOST=selenium-hub
-
       - HUB_PORT=4444
-
+      - NODE_MAX_INSTANCES=10
+      - NODE_MAX_SESSION=10
     ports:
 
       - "5900:5900"
     networks:
         - front-tier
-
-  firefox-debug:
-
-    image: selenium/node-firefox-debug:latest
-
+  
+  firefox:
+    image: selenium/node-firefox:latest
     container_name: "firefox_latest"
-
     volumes:
-
       - /dev/shm:/dev/shm
-
     depends_on:
-
       - selenium-hub
-
     environment:
-
       - HUB_HOST=selenium-hub
-
       - HUB_PORT=4444
-
+      - NODE_MAX_INSTANCES=10
+      - NODE_MAX_SESSION=10
     ports:
-
       - "5901:5900"
-    networks:
-        - front-tier
-
-  opera-debug:
-
-    image: selenium/node-opera-debug:latest
-
-    container_name: opera_latest
-
-    volumes:
-
-      - /dev/shm:/dev/shm
-
-    depends_on:
-
-      - selenium-hub
-
-    environment:
-
-      - HUB_HOST=selenium-hub
-
-      - HUB_PORT=4444
-
-    ports:
-
-      - "5902:5900"
     networks:
         - front-tier
 
