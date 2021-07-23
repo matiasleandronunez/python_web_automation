@@ -1,7 +1,8 @@
 {
   "url": "http://appserver:8080",
   "api_uri": "http://appserver:8080",
-  "default_browser": "grid_chrome",
+  "default_browser": "chrome",
+  "execute_in_grid": true,
   "grid_uri": "http://selenium-hub:4444",
   "driver_timeout": "10"
 }

@@ -14,6 +14,7 @@ class Settings(object):
             self.grid_uri = settings['grid_uri']
             self.default_browser = settings['default_browser']
             self.driver_timeout = int(settings['driver_timeout'])
+            self.execute_in_grid = settings['execute_in_grid']
 
 
 settings = Settings()
