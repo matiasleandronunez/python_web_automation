@@ -11,6 +11,7 @@ class Settings(object):
             settings = json.load(f)
             self.url = settings['url']
             self.api_uri = settings['api_uri']
+            self.grid_uri = settings['grid_uri']
             self.default_browser = settings['default_browser']
             self.driver_timeout = int(settings['driver_timeout'])
 
