@@ -79,40 +79,25 @@ services:
 
       - BROWSER_NAME=chrome
 
-  samsung_11.0:
-
-    image:  budtmo/docker-android-x86-11.0
-
+  samsung_galaxy_web_7.1.1:
+    image: budtmo/docker-android-x86-8.1
     privileged: true
-
     # Increase scale number if needed
-
     scale: 1
-
     depends_on:
-      - selenium-hub
+      - selenium_hub
       - real_device
-
     ports:
-
-      - "6080:6080"
-    networks:
-        - front-tier
-
+      - 6080
     volumes:
-
-      - ./video-samsung_11.0:/tmp/video
-
+      - ./video-samsung_7.1.1:/tmp/video
     environment:
-      - DEVICE=Samsung Galaxy S10
+      - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium-hub
-      - SELENIUM_PORT=4444
+      - SELENIUM_HOST=selenium_hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
-      - SELENIUM_TIMEOUT=30
-      - NO_PROXY="localhost"
 
   database:
     image: dockersamples/atsea_db
