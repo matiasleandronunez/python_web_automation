@@ -18,10 +18,12 @@ class Driver(object):
                 self.driver = webdriver.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
                                                desired_capabilities=capabilities)
             elif tag_browser == "android11_chrome":
-                capabilities = appium_wd.DesiredCapabilities().ANDROID_BASE_CAPS.copy()
-                capabilities['platformName'] = 'Android'
-                capabilities['deviceName'] = 'samsung_galaxy_s10_11.0'
-                capabilities['browserName'] = 'chrome'
+                capabilities = {
+                    'platformName': 'Android',
+                    'platformVersion': '11.0',
+                    'deviceName': 'samsung_galaxy_s10_11.0',
+                    'browserName': 'chrome'
+                }
                 self.driver = appium_wd.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
                                                desired_capabilities=capabilities)
             else:
