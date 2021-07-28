@@ -85,17 +85,19 @@ services:
     # Increase scale number if needed
     scale: 1
     depends_on:
-      - selenium_hub
+      - selenium-hub
       - real_device
     ports:
-      - 6080
+      - "6080:6080"
+    networks:
+      - front-tier
     volumes:
       - ./video-samsung_7.1.1:/tmp/video
     environment:
       - DEVICE=Samsung Galaxy S6
       - CONNECT_TO_GRID=true
       - APPIUM=true
-      - SELENIUM_HOST=selenium_hub
+      - SELENIUM_HOST=selenium-hub
       - MOBILE_WEB_TEST=true
       - AUTO_RECORD=true
 

@@ -20,8 +20,7 @@ class Driver(object):
             elif tag_browser == "android11_chrome":
                 capabilities = {
                     'platformName': 'Android',
-                    'platformVersion': '11.0',
-                    'deviceName': 'samsung_galaxy_s10_11.0',
+                    'deviceName': 'samsung_galaxy_s6_8.1',
                     'browserName': 'chrome'
                 }
                 self.driver = appium_wd.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
