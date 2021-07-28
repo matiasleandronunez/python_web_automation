@@ -1,4 +1,5 @@
 from selenium import webdriver
+from appium import webdriver as appium_wd
 from context.config import settings
 
 
@@ -15,6 +16,13 @@ class Driver(object):
             elif tag_browser == "firefox":
                 capabilities = webdriver.DesiredCapabilities.FIREFOX.copy()
                 self.driver = webdriver.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
+                                               desired_capabilities=capabilities)
+            elif tag_browser == "android11_chrome":
+                capabilities = appium_wd.DesiredCapabilities().ANDROID_BASE_CAPS.copy()
+                capabilities['platformName'] = 'Android'
+                capabilities['deviceName'] = 'samsung_galaxy_s10_11.0'
+                capabilities['browserName'] = 'chrome'
+                self.driver = appium_wd.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
                                                desired_capabilities=capabilities)
             else:
                 raise SeleniumDriverNotFound(

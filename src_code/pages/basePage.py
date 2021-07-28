@@ -44,3 +44,10 @@ class BasePage:
             raise NoSuchElementException(f"Could not find {locator.selector}")
 
         return self.driver.get_driver().find_element(locator.l_type, locator.selector)
+
+    def get_elements(self, locator):
+        if not self.element_exists(locator):
+            raise NoSuchElementException(f"Could not find any {locator.selector}")
+
+        return self.driver.get_driver().find_elements(locator.l_type, locator.selector)
+

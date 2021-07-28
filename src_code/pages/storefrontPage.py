@@ -9,6 +9,7 @@ class StorefrontPage(BasePage):
     _CHECKOUT_BUTTON = Locator(By.CSS_SELECTOR, "div.checkout-button > a")
     _CREATE_USER_LINK = Locator(By.CSS_SELECTOR, "div.buttonSection > div > button:nth-child(1)")
     _SIGN_IN_LINK = Locator(By.CSS_SELECTOR, "div.buttonSection > div > button:nth-child(2)")
+    _ITEM_CARDS = Locator(By.CSS_SELECTOR, "div.tile")
 
     def __init__(self, driver):
         super().__init__(driver)
@@ -35,4 +36,7 @@ class StorefrontPage(BasePage):
 
     def sign_in_link(self):
         self.get_element(self._SIGN_IN_LINK).click()
+
+    def displayed_cards_count(self):
+        return sum(1 for i in self.get_elements(self._ITEM_CARDS) if i.is_displayed())
 

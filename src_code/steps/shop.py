@@ -31,3 +31,9 @@ def step_impl(context, price, quantity):
 @then(u'I verify taxes amount \$1.50 by (\d+)')
 def step_impl(context, quantity):
     assert 1.5 * int(quantity) == context.checkout_page.get_taxes()
+
+
+@then(u'I verify all items are displayed')
+def step_impl(context):
+    assert context.apihelper.get_all_products() == context.storefront_page.displayed_cards_count()
+

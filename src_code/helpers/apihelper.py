@@ -70,3 +70,14 @@ def delete_customer(cust_id):
     else:
         return response.status_code
 
+
+def get_all_products():
+    response = requests.get(f"{settings.api_uri}/api/product/")
+
+    if response.status_code == 200:
+        return json.loads(response.json(), object_hook=lambda d: SimpleNamespace(**d))
+    elif response.status_code == 204:
+        return []
+    else:
+        raise RequestReturnedNonOK(response.status_code)
+

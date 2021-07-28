@@ -1,4 +1,5 @@
 behave 
 selenium
+appium
 requests
 Faker
