@@ -4,7 +4,7 @@ Integral boilerplate python automation project using behave and docker container
 
 Before Running:
 
-After cloning the repository, create the secrets required by the sample app by executing the following commands:
+After cloning the repository, create the secrets required by the sample app by executing the following commands that require you to init docker swarm first:
 
 mkdir certs
 
@@ -15,3 +15,6 @@ docker secret create revprox_cert certs/domain.crt
 docker secret create revprox_key certs/domain.key
 
 docker secret create postgres_password certs/domain.key
+
+Make sure to copy the devscrets folder to the repository, or else edit the docker-compose file to correctly route the path.
+
