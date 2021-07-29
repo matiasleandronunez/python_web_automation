@@ -37,5 +37,5 @@ def step_impl(context, quantity):
 
 @then(u'I verify all items are displayed')
 def step_impl(context):
-    assert apihelper.get_all_products() == context.storefront_page.displayed_cards_count()
+    assert len(apihelper.get_all_products()) == context.storefront_page.displayed_cards_count()
 
