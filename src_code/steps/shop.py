@@ -1,6 +1,6 @@
 from behave import given, when, then
 from behave import matchers
-from src_code.helpers import apihelper
+from helpers import apihelper
 
 matchers.use_step_matcher("re")
 from context.config import settings
