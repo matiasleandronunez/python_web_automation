@@ -75,7 +75,7 @@ def get_all_products():
     response = requests.get(f"{settings.api_uri}/api/product/")
 
     if response.status_code == 200:
-        return json.loads(response.json())
+        return response.json()
     elif response.status_code == 204:
         return []
     else:
