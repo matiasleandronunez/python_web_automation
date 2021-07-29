@@ -1,5 +1,7 @@
 from behave import given, when, then
 from behave import matchers
+from src_code.helpers import apihelper
+
 matchers.use_step_matcher("re")
 from context.config import settings
 
@@ -35,5 +37,5 @@ def step_impl(context, quantity):
 
 @then(u'I verify all items are displayed')
 def step_impl(context):
-    assert context.apihelper.get_all_products() == context.storefront_page.displayed_cards_count()
+    assert apihelper.get_all_products() == context.storefront_page.displayed_cards_count()
 
