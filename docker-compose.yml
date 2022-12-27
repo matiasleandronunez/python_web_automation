@@ -137,7 +137,7 @@ services:
 
 secrets:
   postgres_password:
-    file: ./devsecrets/postgres_password
+    file: ./pg_psw
 
 networks:
   front-tier:
