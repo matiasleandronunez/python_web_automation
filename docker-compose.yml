@@ -103,8 +103,6 @@ services:
 
   database:
     image: dockersamples/atsea_db
-    build:
-       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/database#:7
     environment:
       POSTGRES_USER: gordonuser
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
@@ -118,9 +116,6 @@ services:
 
   appserver:
     image: dockersamples/atsea_app
-    build:
-       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/app#:7
-       dockerfile: Dockerfile-dev
     container_name: atsea
     ports:
       - "8080:8080"
