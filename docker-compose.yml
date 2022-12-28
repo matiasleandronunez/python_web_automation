@@ -9,14 +9,12 @@ services:
     container_name: selenium-hub
 
     ports:
-      - "4442:4442"
-      - "4443:4443"
       - "4444:4444"
 
     networks:
         - front-tier
   chrome:
-    image: selenium/node-chrome:94.0.4606.54
+    image: selenium/node-chrome:3.141.59
     container_name: chrome_latest
     volumes:
       - /dev/shm:/dev/shm
@@ -27,9 +25,6 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
       
     ports:
 
@@ -38,7 +33,7 @@ services:
         - front-tier
   
   firefox:
-    image: selenium/node-firefox:92.0.1
+    image: selenium/node-firefox:3.141.59
     container_name: "firefox_latest"
     volumes:
       - /dev/shm:/dev/shm
@@ -49,9 +44,7 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+
     ports:
       - "5901:5900"
     networks:
