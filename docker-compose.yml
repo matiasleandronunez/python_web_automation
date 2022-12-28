@@ -9,7 +9,8 @@ services:
     container_name: selenium-hub
 
     ports:
-
+      - "4442:4442"
+      - "4443:4443"
       - "4444:4444"
 
     networks:
@@ -26,8 +27,10 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
-      - SE_EVENT_BUS_HOST=selenium-hub 
-      - SE_EVENT_BUS_PUBLISH_PORT=4444
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      
     ports:
 
       - "5900:5900"
@@ -47,7 +50,8 @@ services:
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
       - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4444
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     ports:
       - "5901:5900"
     networks:
