@@ -4,7 +4,7 @@ services:
 
   selenium-hub:
 
-    image: selenium/hub:latest
+    image: selenium/hub:3.141.59
 
     container_name: selenium-hub
 
@@ -15,7 +15,7 @@ services:
     networks:
         - front-tier
   chrome:
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:94.0.4606.54
     container_name: chrome_latest
     volumes:
       - /dev/shm:/dev/shm
@@ -33,7 +33,7 @@ services:
         - front-tier
   
   firefox:
-    image: selenium/node-firefox:latest
+    image: selenium/node-firefox:92.0.1
     container_name: "firefox_latest"
     volumes:
       - /dev/shm:/dev/shm
