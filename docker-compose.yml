@@ -17,6 +17,7 @@ services:
   chrome:
     image: selenium/node-chrome:94.0.4606.54
     container_name: chrome_latest
+    SE_EVENT_BUS_HOST: selenium-hub 
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -35,6 +36,7 @@ services:
   firefox:
     image: selenium/node-firefox:92.0.1
     container_name: "firefox_latest"
+    SE_EVENT_BUS_HOST: selenium-hub 
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
