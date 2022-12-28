@@ -4,18 +4,17 @@ services:
 
   selenium-hub:
 
-    image: selenium/hub:latest
+    image: selenium/hub:3.141.59
 
     container_name: selenium-hub
 
     ports:
-
       - "4444:4444"
 
     networks:
         - front-tier
   chrome:
-    image: selenium/node-chrome:latest
+    image: selenium/node-chrome:3.141.59
     container_name: chrome_latest
     volumes:
       - /dev/shm:/dev/shm
@@ -26,6 +25,7 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
+      
     ports:
 
       - "5900:5900"
@@ -33,7 +33,7 @@ services:
         - front-tier
   
   firefox:
-    image: selenium/node-firefox:latest
+    image: selenium/node-firefox:3.141.59
     container_name: "firefox_latest"
     volumes:
       - /dev/shm:/dev/shm
@@ -44,6 +44,7 @@ services:
       - HUB_PORT=4444
       - NODE_MAX_INSTANCES=10
       - NODE_MAX_SESSION=10
+
     ports:
       - "5901:5900"
     networks:
@@ -103,8 +104,6 @@ services:
 
   database:
     image: dockersamples/atsea_db
-    build:
-       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/database#:7
     environment:
       POSTGRES_USER: gordonuser
       POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
@@ -118,9 +117,6 @@ services:
 
   appserver:
     image: dockersamples/atsea_app
-    build:
-       context: https://github.com/dockersamples/atsea-sample-shop-app/tree/master/app#:7
-       dockerfile: Dockerfile-dev
     container_name: atsea
     ports:
       - "8080:8080"
@@ -142,7 +138,7 @@ services:
 
 secrets:
   postgres_password:
-    file: ./devsecrets/postgres_password
+    file: ./pg_psw
 
 networks:
   front-tier:
