@@ -76,9 +76,9 @@ It is recommended to use a docker visualization interface.
 ### The environment
 
 Consists of a series of docker containers: 
-* One group including the selenium (v3) grid hub, firefox and chrome nodes, an appium node and an android emulator node with chrome installed. 
+* One group including the selenium (v4) full grid, firefox, edge and chrome nodes.
 * Another group consisting of a the sample application to test, webapp and database. 
-* A docker container based in a python3.8 image with tty where to run the tests.
+* A docker container based in a python3.10 image with tty where to run the tests.
 
 Deploy the whole environment simply by executing:
 ```
@@ -91,10 +91,7 @@ http://localhost:4444/grid/console
 The application can be reached at:
 http://localhost:8080/
 
-And the android emulator, that has noVNC support, at:
-http://localhost:6080/
-
-There's no visualization support for the chrome and firefox nodes. If you need so, you can replace the images and use the 'debug' nones instead. Refer to: https://github.com/SeleniumHQ/docker-selenium/tree/selenium-3
+There's no visualization support for the chrome and firefox nodes. If you need so, you can replace the images and use the 'debug' nones instead. Refer to: https://github.com/SeleniumHQ/docker-selenium
 
 
 To run the tests, tty to the docker container named 'tests' and execute:
