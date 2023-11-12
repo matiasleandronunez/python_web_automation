@@ -108,35 +108,6 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
 
-  appium-server:
-    image: appium/appium
-    networks:
-      - front-tier
-    ports:
-      - "4723:4723"
-    environment:
-      - CONNECT_TO_GRID=true
-      - SELENIUM_HOST=selenium-router
-      - SELENIUM_PORT=4444
-
-  android-11-container:
-    image: budtmo/docker-android:emulator_11.0
-    privileged: true
-    # Increase scale number if needed
-    scale: 1
-    depends_on:
-      - selenium-router
-      - appium-server
-    ports:
-      - "6080:6080"
-    networks:
-      - front-tier
-    environment:
-      - device=/dev/kvm
-      - EMULATOR_DEVICE="Samsung Galaxy S10"
-      - WEB_VNC=true
-      - APPIUM=true
-
   database:
     image: dockersamples/atsea_db
     environment:
