@@ -4,6 +4,8 @@ services:
   selenium-event-bus:
     image: selenium/event-bus:4.15.0-20231102
     container_name: selenium-event-bus
+    networks:
+      - front-tier
     ports:
       - "4442:4442"
       - "4443:4443"
@@ -12,6 +14,8 @@ services:
   selenium-sessions:
     image: selenium/sessions:4.15.0-20231102
     container_name: selenium-sessions
+    networks:
+      - front-tier
     ports:
       - "5556:5556"
     depends_on:
@@ -24,12 +28,16 @@ services:
   selenium-session-queue:
     image: selenium/session-queue:4.15.0-20231102
     container_name: selenium-session-queue
+    networks:
+      - front-tier
     ports:
       - "5559:5559"
 
   selenium-distributor:
     image: selenium/distributor:4.15.0-20231102
     container_name: selenium-distributor
+    networks:
+      - front-tier
     ports:
       - "5553:5553"
     depends_on:
@@ -48,6 +56,8 @@ services:
   selenium-router:
     image: selenium/router:4.15.0-20231102
     container_name: selenium-router
+    networks:
+      - front-tier
     ports:
       - "4444:4444"
     depends_on:
@@ -67,6 +77,8 @@ services:
     shm_size: 2gb
     depends_on:
       - selenium-event-bus
+    networks:
+      - front-tier
     environment:
       - SE_EVENT_BUS_HOST=selenium-event-bus
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -77,6 +89,8 @@ services:
     shm_size: 2gb
     depends_on:
       - selenium-event-bus
+    networks:
+      - front-tier
     environment:
       - SE_EVENT_BUS_HOST=selenium-event-bus
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -87,6 +101,8 @@ services:
     shm_size: 2gb
     depends_on:
       - selenium-event-bus
+    networks:
+      - front-tier
     environment:
       - SE_EVENT_BUS_HOST=selenium-event-bus
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -94,6 +110,8 @@ services:
 
   appium-server:
     image: appium/appium
+    networks:
+      - front-tier
     ports:
       - "4723:4723"
     environment:

@@ -1,6 +1,6 @@
 Feature: Users
 
-  @Browser:firefox
+  @Browser:chrome
   Scenario: Create a new user
     Given I go to the storefront
     When I go to the user creation screen

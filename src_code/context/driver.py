@@ -17,12 +17,12 @@ class Driver(object):
                 options = ChromeOptions()
                 cloud_options = {}
                 options.set_capability('cloud:options', cloud_options)
-                self.driver = webdriver.Remote(cloud_url, options=options)
+                self.driver = webdriver.Remote(command_executor=cloud_url, options=options)
             elif tag_browser == "firefox":
                 options = FirefoxOptions()
                 cloud_options = {}
                 options.set_capability('cloud:options', cloud_options)
-                self.driver = webdriver.Remote(cloud_url, options=options)
+                self.driver = webdriver.Remote(command_executor=cloud_url, options=options)
             else:
                 raise SeleniumDriverNotFound(
                     f"{settings.browser} not currently supported")
