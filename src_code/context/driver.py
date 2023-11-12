@@ -1,4 +1,7 @@
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.edge.options import Options as EdgeOptions
 from appium import webdriver as appium_wd
 from context.config import settings
 
@@ -9,22 +12,17 @@ class Driver(object):
 
     def __init__(self, tag_browser=settings.default_browser):
         if settings.execute_in_grid:
+            cloud_url = settings.grid_uri
             if tag_browser == "chrome":
-                capabilities = webdriver.DesiredCapabilities.CHROME.copy()
-                self.driver = webdriver.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
-                                           desired_capabilities=capabilities)
+                options = ChromeOptions()
+                cloud_options = {}
+                options.set_capability('cloud:options', cloud_options)
+                self.driver = webdriver.Remote(cloud_url, options=options)
             elif tag_browser == "firefox":
-                capabilities = webdriver.DesiredCapabilities.FIREFOX.copy()
-                self.driver = webdriver.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
-                                               desired_capabilities=capabilities)
-            elif tag_browser == "android11_chrome":
-                capabilities = {
-                    'platformName': 'Android',
-                    'deviceName': 'samsung_galaxy_s6_8.1',
-                    'browserName': 'chrome'
-                }
-                self.driver = appium_wd.Remote(command_executor=f"{settings.grid_uri}/wd/hub",
-                                               desired_capabilities=capabilities)
+                options = FirefoxOptions()
+                cloud_options = {}
+                options.set_capability('cloud:options', cloud_options)
+                self.driver = webdriver.Remote(cloud_url, options=options)
             else:
                 raise SeleniumDriverNotFound(
                     f"{settings.browser} not currently supported")
